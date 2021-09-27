@@ -23,37 +23,37 @@ fi
 if [ ! -d "$target/reconky" ];then
 	mkdir $target/reconky
 fi
-if [ ! -d '$target/reconky/sublist3r' ];then
+if [ ! -d "$target/reconky/sublist3r" ];then
 	mkdir $target/reconky/sublist3r
 	touch $target/reconky/sublist3r/subdomains.txt
 fi
-if [ ! -d '$tagget/reconky/httprobe' ]; then
+if [ ! -d "$tagget/reconky/httprobe" ]; then
 	mkdir $target/reconky/httprobe
 fi
-if [ ! -d '$target/reconky/assetfinder' ];then
+if [ ! -d "$target/reconky/assetfinder" ];then
 	mkdir $target/reconky/assetfinder
 	touch $target/reconky/assetfinder/subdomains1.txt
 fi
-if [ ! -d '$target/reconky/Subdomain_Takeover' ]; then
+if [ ! -d "$target/reconky/Subdomain_Takeover" ]; then
 	mkdir $target/reconky/Subdomain_Takeover
 fi
-if [ ! -d '$target/reconky/scans' ]; then
+if [ ! -d "$target/reconky/scans" ]; then
 	mkdir $target/reconky/scans
 fi
-if [ ! -d '$target/reconky/wayback_urls' ]; then
+if [ ! -d "$target/reconky/wayback_urls" ]; then
 	mkdir $target/reconky/wayback_urls
 	mkdir $target/reconky/wayback_urls/params
 	touch $target/reconky/wayback_urls/params/params.txt
 	mkdir $target/reconky/wayback_urls/extensions
 fi
-if [ ! -d '$target/reconky/amass' ]; then
+if [ ! -d "$target/reconky/amass" ]; then
 	mkdir $target/reconky/amass
 	touch $target/reconky/amass/subdomains2.txt
 fi
-if [ ! -d '$target/reconky/witness' ]; then
+if [ ! -d "$target/reconky/witness" ]; then
 	mkdir $target/reconky/eyewitness
 fi
-if [ ! -d '$target/reconky/knockpy' ]; then
+if [ ! -d "$target/reconky/knockpy" ]; then
 	mkdir $target/reconky/knockpy
 	touch $target/reconky/knockpy/subdomains3.txt
 fi
@@ -86,15 +86,19 @@ echo ${green}"[+++] Running gowtiness(eyewitness) against all the compiled(alive
 echo
 echo ${yellow}"[+++]Recon is in Progress Take A Cofee or Tea ;)[+++]"${yellow}
 echo
+echo 'Starting assetfinder'
 assetfinder $target >> $target/reconky/assetfinder/subdomains1.txt
 cat $target/reconky/assetfinder/subdomains1.txt | grep $1 >> $target/reconky/Subdomain_final.txt
 echo
+echo 'Starting sublist3r'
 sublist3r -d $target -v -t 100 -o $target/reconky/sublist3r/subdomains.txt
 cat $target/reconky/sublist3r/subdomains.txt | grep $1 >> $target/reconky/Subdomain_final.txt
 echo
+echo 'Starting Amass'
 amass enum -d $target -o $target/reconky/amass/subdomains2.txt
 cat $target/reconky/amass/subdomains2.txt | grep $1 >> $target/reconky/Subdomain_final.txt
 echo
+echo 'Starting knockpy'
 knockpy $target >> $target/reconky/knockpy/subdomains3.txt 
 awk '/$target/ {print}' $target/reconky/knockpy/subdomains3.txt | cut -d " " -f 9 >> $target/reconky/Subdomain_final.txt
 echo
@@ -103,8 +107,10 @@ echo
 if [ ! -f "$target/reconky/Subdomain_Takeover/Subdomain_Takeover.txt" ];then
 	touch $target/reconky/Subdomain_Takeover/Subdomain_Takeover.txt
 fi
+echo 'Starting subjack'
 subjack -w $target/reconky/Subdomain_final.txt -t 70 -timeout 25 -ssl -c /root/go/src/github.com/haccer/subjack/fingerprints.json -v 3 -o $target/reconky/Subdomain_Takeover/Subdomain_Takeover.txt
 echo
+echo 'Starting nmap'
 nmap -iL $target/reconky/httprobe/alivee.txt -T4 -oA $target/reconky/scans/scanned.txt
 echo
 if [ ! -f "$target/reconky/wayback_urls/wayback_output.txt" ];then
@@ -143,4 +149,5 @@ for i in $(cat $target/reconky/wayback_urls/wayback_output.txt);do
 		rm $target/reconky/wayback_urls/extensions/aspx1.txt
 	fi
 done
+echo 'Starting eyewitness'
 eyewitness -f $target/reconky/httprobe/alivee.txt --web -d $target/reconky/eyewitness --resolve
