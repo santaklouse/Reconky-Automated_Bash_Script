@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 #Author:Shivam Rai/
 #Date:18/06/2021
 #Description:Automated Recon tool
