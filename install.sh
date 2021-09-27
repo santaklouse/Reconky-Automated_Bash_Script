@@ -25,6 +25,12 @@ apt-get update
 # install gvm (Go Version Manager)
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 
+export GVM_ROOT=/root/.gvm
+source $GVM_ROOT/scripts/gvm-default
+
+if [ ! -e "$(which gvm)" ];then
+    export PATH="$GVM_ROOT/bin:$PATH"
+fi
 
 gvm install go1.16
 gvm use go1.16
@@ -58,7 +64,7 @@ echo 'Install waybackurls'
 
 if [ ! -e "$(which waybackurls)" ];then
 	go get github.com/tomnomnom/waybackurls
-	ln -sfv /root/go/bin/./waybackurls /usr/bin/waybackurls
+#	ln -sfv /root/go/bin/./waybackurls /usr/bin/waybackurls
 else
 	echo "Waybackurl is already installed"
 fi
@@ -67,7 +73,7 @@ echo 'Install subjack'
 
 if [ ! -e "$(which subjack)" ];then
 	go get github.com/haccer/subjack
-	ln -sfv /root/go/bin/./subjack /usr/bin/subjack
+#	ln -sfv /root/go/bin/./subjack /usr/bin/subjack
 else
 	echo "Subjack is already installed"
 fi
@@ -76,7 +82,7 @@ echo 'Install assetfinder'
 
 if [ ! -e "$(which assetfinder)" ];then
 	go get -u github.com/tomnomnom/assetfinder
-	ln -sfv /root/go/bin/./assetfinder /usr/bin/assetfinder
+#	ln -sfv /root/go/bin/./assetfinder /usr/bin/assetfinder
 else
 	echo "Assetfinder is already Installed"
 fi
@@ -133,7 +139,7 @@ if [ ! -e "$(which knockpy)" ];then
 	cd /opt/tools
 	git clone --depth=1 https://github.com/guelfoweb/knock.git
 	cd knock
-        pip3 install -r requirements.txt
+    pip3 install -r requirements.txt
 	python3 setup.py install
 else
 	echo "Knockpy is already Installed"
