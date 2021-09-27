@@ -46,16 +46,17 @@ ln -sfv $a/EyeWitness.py /usr/bin/eyewitness
 echo 'Install httprobe'
 
 echo
-if [ ! -e /usr/bin/httprobe ];then
+#if [ ! -e /usr/bin/httprobe ];then
+if [ ! -e "$(which httprobe)" ];then
 	go get -u github.com/tomnomnom/httprobe
-	ln -sfv /root/go/bin/./httprobe /usr/bin/httprobe
+#	ln -sfv /root/go/bin/./httprobe /usr/bin/httprobe
 else
 	echo "Httprobe is already installed"
 fi
 
 echo 'Install waybackurls'
 
-if [ ! -e /root/go/bin/.waybackurls ];then
+if [ ! -e "$(which waybackurls)" ];then
 	go get github.com/tomnomnom/waybackurls
 	ln -sfv /root/go/bin/./waybackurls /usr/bin/waybackurls
 else
@@ -64,7 +65,7 @@ fi
 
 echo 'Install subjack'
 
-if [ ! -e /root/go/bin/./subjack ];then
+if [ ! -e "$(which subjack)" ];then
 	go get github.com/haccer/subjack
 	ln -sfv /root/go/bin/./subjack /usr/bin/subjack
 else
@@ -73,7 +74,7 @@ fi
 
 echo 'Install assetfinder'
 
-if [ ! -e /root/go/bin/assetfinder ];then
+if [ ! -e "$(which assetfinder)" ];then
 	go get -u github.com/tomnomnom/assetfinder
 	ln -sfv /root/go/bin/./assetfinder /usr/bin/assetfinder
 else
@@ -82,7 +83,7 @@ fi
 
 echo 'Install amass'
 
-if [ ! -e /usr/bin/amass ];then
+if [ ! -e "$(which amass)" ];then
 	go get -v github.com/OWASP/Amass/v3/...
 else
 	echo "Amass is already installed"
@@ -110,7 +111,8 @@ fi
 
 echo 'Install sublist3r'
 
-if [ ! -e /usr/bin/sublist3r ];then
+if [ ! -e "$(which sublist3r)" ];then
+#if [ ! -e /usr/bin/sublist3r ];then
 	cd /opt
 	mkdir tools
 	cd tools
@@ -126,7 +128,8 @@ fi
 
 echo 'Install knockpy'
 
-if [ ! -e /usr/bin/knockpy ];then
+if [ ! -e "$(which knockpy)" ];then
+#if [ ! -e /usr/bin/knockpy ];then
 	cd /opt/tools
 	git clone --depth=1 https://github.com/guelfoweb/knock.git
 	cd knock
