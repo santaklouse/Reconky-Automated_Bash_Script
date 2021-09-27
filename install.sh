@@ -14,12 +14,21 @@ if [[ $(id -u) != 0 ]]; then
 fi
 echo
 apt-get update
-if [ ! -e /usr/lib/go/bin/./go ];then
-	apt-get install golang -y
-	ln -sfv /usr/lib/go/bin/./go /usr/bin/go
-else
-	echo "Go is already installed"
-fi
+
+#if [ ! -e /usr/lib/go/bin/./go ];then
+#	apt-get install golang -y
+#	ln -sfv /usr/lib/go/bin/./go /usr/bin/go
+#else
+#	echo "Go is already installed"
+#fi
+
+# install gvm (Go Version Manager)
+bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+
+
+gvm install go1.16
+gvm use go1.16
+
 apt-get install zip -y
 apt-get install python3-pip
 echo
