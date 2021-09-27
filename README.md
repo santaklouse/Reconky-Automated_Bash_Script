@@ -11,7 +11,7 @@
 ``` 
 
 # Usage
-`./reconky.sh <domain.com>`
+`sudo ./reconky.sh <domain.com>`
 
 # About 
 
@@ -30,10 +30,10 @@ Reconky is a script written in bash to automate the task of recon and informatio
 - Runs eyewitness against all the compiled(alive) domains
 
 # Installation & Requirements
-- Download the install script from https://github.com/ShivamRai2003/Reconky-Automated_Bash_Script/blob/main/reconky.sh
+- run `sudo ./install.sh`
 
 # DEMO
-![cli output](https://github.com/ShivamRai2003/Reconky-Automated_Bash_Script/blob/main/Recon.gif)
+![cli output](https://github.com/santaklouse/Reconky-Automated_Bash_Script/blob/main/Recon.gif?raw=true)
 
 # Authors and Thanks
 
